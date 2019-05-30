@@ -1,0 +1,66 @@
+Visuals Setup: with views and buttons
+
+Navigation Setup: Dummy setup code or framework to for buttons with simple output log output that it got to the destination.
+	Startup/welcome: Rich
+	
+	Med home page: Rich
+	
+	Add Med: Eric
+	
+	Notification: Eric
+		
+	History basic: Alice
+	
+	History detailed: Alice
+
+Startup/welcome user auth page (UserAuthentication)
+
+	Med Homepage (new page) class(MedicationHome)
+		Current meds / show meds and schedule view with a timer for hours apart
+		history button
+		Add new med button
+	
+	Add Med (new page) class (AddNewMedication)
+		inputs (text input)
+		med	(text input)
+		dose (text input)
+		day / time (date input)
+		submit (button)
+			toast of added new med then back home.
+		
+	Notification reminder (new page) class (Notification)
+		Called from clock from add med.
+		Med/dose (view)
+		Check box for taken/skipped
+			**if timer reset for next dose start.
+			toast save or skipped then back home
+			**early notification
+		Notes optional (view)
+		
+		Button to save then back home
+		
+	History New page (HistoryMain)
+		list of meds (active then inactive - new to oldest)  with a button to details page
+			
+			details: new page class (HistoryDetailed)
+				history
+				notes
+				date
+				time (view)
+				
+			back to history button
+			home button
+		
+	Stretch
+		
+		Refill notification
+			(on the Add Med)
+			with end date
+			
+		Pictures of Med/bottle 
+			(add new med page)
+		
+		Cloud Storage
+			User settings for cloud storage
+			
+		
