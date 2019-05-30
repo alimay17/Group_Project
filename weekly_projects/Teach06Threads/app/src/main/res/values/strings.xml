@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Teach06-Threads</string>
+    <string name="button1">Count Odd</string>
+    <string name="button2">Count Even</string>
+</resources>
