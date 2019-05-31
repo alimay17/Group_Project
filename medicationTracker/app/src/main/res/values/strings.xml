@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Medication Tracker</string>
+    <string name="buttonHistory">Get History</string>
+    <string name="pageHeading">This is History Main</string>
+    <string name="buttonHistoryDetail">Get History Details</string>
+    <string name="pageHeading02">This Is History Details</string>
+    <string name="welcomeMessage">Welcome to Our App. It is currently under Construction</string>
 </resources>
