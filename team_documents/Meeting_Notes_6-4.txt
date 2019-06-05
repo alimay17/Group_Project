@@ -1,0 +1,24 @@
+Design Document
+Will convert to UML the doc worked on. Thursday
+Finalize the Class names, and UI plans. 
+
+
+Team Milestone Plan (Eric Thursday night)
+Week 09: Basic framework 
+	empty classes 
+	buttons going to the correct places
+
+Week 11: Core functionally app 
+	Secure Login
+	Add new med
+	View history med
+	Reminder med
+
+Week 13: Working
+	Beautified
+	Some stretch goals
+		Picture
+		Pharmacy
+		Remind me Latter
+	
+	
