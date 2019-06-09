@@ -1,0 +1,26 @@
+Project - Medication Tracker:
+
+Eric Mott
+Richard Terry 
+Alice Smith
+
+Overview: 
+	Allow users to enter, view history and track medication usage, and recieve reminders. 
+
+Core Features:
+	- Add New medication
+	- View current and past medications
+	- tracking and reminders of current medication
+	- assign medication to current or past
+
+Stretch:
+	- Refil reminders
+	- Remind later option on reminders
+	- Cloud storage
+	- Pictures
+
+Design Approach:
+	Create a medication object that will filled in by the user. It will get stored in a in app database allowing for history display and tracking. The medication db will be stored in a user object that is password or passcode protected.
+	User object calls up database and initiates all calls to update or view medication objects stored. 
+	Medication object holds description, dosage, taking interval or time.
+
