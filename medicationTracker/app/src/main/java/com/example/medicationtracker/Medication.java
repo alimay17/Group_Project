@@ -21,6 +21,7 @@ public class Medication {
     this.mName = mName;
   }
 
+
   // getters
   public int getId() { return id; }
 
