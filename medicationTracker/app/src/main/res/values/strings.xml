@@ -5,4 +5,8 @@
     <string name="buttonHistoryDetail">Get History Details</string>
     <string name="pageHeading02">This Is History Details</string>
     <string name="welcomeMessage">Welcome to Our App. It is currently under Construction</string>
+    <string name="hint_word">Medication Name...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Medication not saved because it is empty.</string>
+
 </resources>

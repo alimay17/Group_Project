@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HistoryDetail"></activity>
+        <activity android:name=".NewMed"></activity>
+        <activity android:name=".HistoryDetail" />
         <activity android:name=".HistoryMain" />
         <activity android:name=".MainActivity">
             <intent-filter>
