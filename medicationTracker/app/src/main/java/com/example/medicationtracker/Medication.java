@@ -5,9 +5,10 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.annotation.NonNull;
 
+// Annotations are for the db functionality.
 @Entity(tableName = "medication")
-
 public class Medication {
+
   @PrimaryKey(autoGenerate = true)
   private int id;
 
@@ -15,19 +16,18 @@ public class Medication {
   @ColumnInfo(name = "med_name")
   private String mName;
 
-  // constructor
-  public Medication(int id, String mName) {
-    this.id = id;
+
+  public Medication(String mName) {
     this.mName = mName;
   }
 
 
   // getters
-  public int getId() { return id; }
+  public int getId() { return this.id; }
 
 
   public String getName() {
-    return mName;
+    return this.mName;
   }
 
   // setters

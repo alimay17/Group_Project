@@ -2,10 +2,9 @@ package com.example.medicationtracker;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
 import java.util.List;
-import java.util.ListIterator;
+
 
 public class MedRepository {
   private MedDao mMedDao;
