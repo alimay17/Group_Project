@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +12,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -39,7 +38,6 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     setContentView(R.layout.activity_history_main);
     mMedViewModel = ViewModelProviders.of(this).get(MedViewModel.class);
 
-    //medications = mMedViewModel.getmAllMeds().getValue();
     //Log.d(TAG, "onCreate: medications: " + medications);
 
     RecyclerView recyclerView = findViewById(R.id.rView);
@@ -62,8 +60,8 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     });
 
     // button to create new medication
-    FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
+    Button addNew2 = findViewById(R.id.addNew2);
+    addNew2.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         Intent intent = new Intent(HistoryMain.this, NewMed.class);
@@ -84,6 +82,7 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     if(requestCode == NEW_MED_REQUEST_CODE && resultCode == RESULT_OK) {
       Medication med = new Medication(data.getStringExtra(NewMed.EXTRA_REPLY));
       mMedViewModel.insert(med);
+      Toast.makeText(getApplicationContext(),"Med Added", Toast.LENGTH_LONG).show();
      } else {
       Toast.makeText(
               getApplicationContext(),
@@ -99,13 +98,14 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
   public void onClick(View view, int position) {
     Log.d(TAG, "onClick: position:" + position);
     Log.d(TAG, "Creating intent for HistoryDetail");
-    //Log.d(TAG, "onClick: meds: " + medications);
-    //final Medication med = medications.get(position);
-    //Log.d(TAG, "onClick: medName: " + med.getName());
+
+    final List<Medication> meds = mMedViewModel.getmAllMeds().getValue();
+    final Medication med = meds.get(position);
+    Log.d(TAG, "onClick: med: " + med.getName());
 
 
     Intent intent = new Intent(this, HistoryDetail.class);
-    //intent.putExtra("medication", med.getName());
+    intent.putExtra("medication", med.getName());
     startActivity(intent);
   }
 }
