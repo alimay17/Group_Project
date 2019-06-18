@@ -1,8 +1,9 @@
 package com.example.medicationtracker;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class HistoryDetail extends AppCompatActivity {
 
@@ -14,4 +15,5 @@ public class HistoryDetail extends AppCompatActivity {
     setContentView(R.layout.activity_history_detail);
     Log.d(TAG, "This is History Detail");
   }
+
 }
