@@ -33,15 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
     // get view layout
     mMedViewModel = ViewModelProviders.of(this).get(MedViewModel.class);
-    medList = mMedViewModel.getmAllMeds().getValue();
+    if(mMedViewModel != null) {
+      medList = mMedViewModel.getmAllMeds().getValue();
 
-    mMedViewModel.getmAllMeds().observe(this, new Observer<List<Medication>>() {
-      @Override
-      public void onChanged(@Nullable final List<Medication> medications) {
-        medList = medications;
-        getCurrentMed();
-      }
-    });
+      mMedViewModel.getmAllMeds().observe(this, new Observer<List<Medication>>() {
+        @Override
+        public void onChanged(@Nullable final List<Medication> medications) {
+          medList = medications;
+          getCurrentMed();
+        }
+      });
+    }
 
     // button to create new medication
     Button addNew = findViewById(R.id.addNew);
