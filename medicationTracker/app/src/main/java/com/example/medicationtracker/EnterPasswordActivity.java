@@ -14,13 +14,13 @@ public class EnterPasswordActivity extends AppCompatActivity {
 
     EditText editText;
     Button button;
-
     String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_password);
+
         // load the password
         SharedPreferences settings = getSharedPreferences("PREFS", 0);
         password = settings.getString("password", "");

@@ -30,7 +30,7 @@ public class SplashPageActivity extends AppCompatActivity {
                     finish();
                 } else {
                     // If there is a password
-                    Intent intent = new Intent(getApplicationContext(), CreatePasswordActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), EnterPasswordActivity.class);
                     startActivity(intent);
                     finish();
                 }
