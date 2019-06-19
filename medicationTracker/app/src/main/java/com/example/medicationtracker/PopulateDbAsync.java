@@ -11,7 +11,7 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
   @Override
   protected Void doInBackground(final  Void... params) {
-      mDao.deleteAll();
+      //mDao.deleteAll();
       //Medication med = new Medication("This is your Medication DB");
       //mDao.insert(med);
     return null;
