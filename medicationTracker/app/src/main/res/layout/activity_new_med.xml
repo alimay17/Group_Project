@@ -25,5 +25,19 @@
         android:background="@color/colorPrimary"
         android:text="@string/button_save"
         android:textColor="@color/buttonLabel" />
+    
+    <Button
+        android:id="@+id/button_setReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Reminder"/>
+
+    <TextView
+        android:id="@+id/textView_remindTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remind Time"
+        android:textSize="30dp"
+        />
 
 </LinearLayout>
