@@ -16,6 +16,7 @@ public class HistoryDetail extends AppCompatActivity {
     setContentView(R.layout.activity_history_detail);
     Log.d(TAG, "This is History Detail");
     getIncomingIntent();
+
   }
 
   private void getIncomingIntent() {

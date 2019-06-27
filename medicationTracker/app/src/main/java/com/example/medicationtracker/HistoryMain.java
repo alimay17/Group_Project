@@ -101,7 +101,7 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
 
     final List<Medication> meds = mMedViewModel.getmAllMeds().getValue();
     final Medication med = meds.get(position);
-    Log.d(TAG, "onClick: med: " + med.getName());
+    Log.d(TAG, "onClick: med: " + med.getId() + "  " + med.getName());
 
 
     Intent intent = new Intent(this, HistoryDetail.class);

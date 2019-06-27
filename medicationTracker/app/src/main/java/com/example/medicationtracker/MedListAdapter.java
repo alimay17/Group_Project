@@ -70,7 +70,7 @@ public class MedListAdapter extends RecyclerView.Adapter<MedListAdapter.MedViewH
   }
 
   /**
-   * get's a count of how may items exist
+   * gets a count of how may items exist
    * @return
    */
   @Override
