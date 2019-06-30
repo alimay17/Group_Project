@@ -17,6 +17,7 @@ public class Medication {
   private String mName;
 
 
+
   public Medication(String mName) {
     this.mName = mName;
   }
