@@ -6,7 +6,7 @@ public class TestDataMatch extends junit.framework.TestCase {
 
   @Test
   public void testGetData() {
-    Medication fakeMed = new Medication("test");
+    Medication fakeMed = new Medication("test", dose);
 
     RetrieveMed medDB = new RetrieveMed();
     Medication testMed = medDB.getMedFromDb();

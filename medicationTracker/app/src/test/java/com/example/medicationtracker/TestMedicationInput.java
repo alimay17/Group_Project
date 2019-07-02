@@ -30,7 +30,7 @@ public class TestMedicationInput {
 
   @Test
   public void writeUserAndReadInList() {
-    Medication med = new Medication("This is your Medication DB");
+    Medication med = new Medication("This is your Medication DB", dose);
     medDao.insert(med);
     LiveData<List<Medication>> liveData = medDao.getAllMeds();
     List<Medication> byName = liveData.getValue();

@@ -25,7 +25,8 @@ public class HistoryDetail extends AppCompatActivity {
     if(getIntent().hasExtra("medication")) {
       Log.d(TAG, "getIncomingIntent: Got intent");
       String medName = getIntent().getStringExtra("medication");
-      displayImage(medName);
+      String dose = getIntent().getStringExtra("dose");
+      displayDetail(medName, dose);
 
     }
     else {
@@ -33,10 +34,13 @@ public class HistoryDetail extends AppCompatActivity {
     }
   }
 
-  private void displayImage(String medName) {
+  private void displayDetail(String medName, String medDose) {
     Log.d(TAG, "displayImage: setting med to display");
     TextView name = findViewById(R.id.medDetail);
-    name.setText("Your Selected Medication: " + medName);
+    TextView dose = findViewById(R.id.dose);
+    name.setText(String.format(medName));
+    dose.setText(String.format("Dosage: %s", medDose));
+
   }
 
 }

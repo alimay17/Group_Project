@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
 
     if(requestCode == NEW_MED_REQUEST_CODE && resultCode == RESULT_OK) {
-      Medication med = new Medication(data.getStringExtra(NewMed.EXTRA_REPLY));
+      Medication med = new Medication(data.getStringExtra(NewMed.EXTRA_REPLY), data.getStringExtra("dose"));
       mMedViewModel.insert(med);
       Toast.makeText(getApplicationContext(),"Med Added", Toast.LENGTH_LONG).show();
     } else {
@@ -88,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
     } else {
       int position = medList.size() - 1;
       final Medication med = medList.get(position);
-      Log.d(TAG, "GetCurrentMed: med: " + med.getId() + "  " + med.getName());
+      Log.d(TAG, "GetCurrentMed: med: " + med.getId() + "  " + med.getName() + " " + med.getDose());
       TextView name = findViewById(R.id.currentMed);
-      name.setText(med.getName());
+      name.setText("Name: " + med.getName());
     }
   }
 
@@ -99,17 +99,17 @@ public class MainActivity extends AppCompatActivity {
    * to send selected med to history detail activity.
    * @param view
    */
-  public void onClick(View view, int position) {
-    Log.d(TAG, "onClick: position:" + position);
+  public void getDetail(View view) {
     Log.d(TAG, "Creating intent for HistoryDetail");
 
-    final List<Medication> meds = mMedViewModel.getmAllMeds().getValue();
-    final Medication med = meds.get(position);
+    int position = medList.size() - 1;
+    final Medication med = medList.get(position);
     Log.d(TAG, "onClick: med: " + med.getName());
 
 
     Intent intent = new Intent(this, HistoryDetail.class);
     intent.putExtra("medication", med.getName());
+    intent.putExtra("dose", med.getDose());
     startActivity(intent);
   }
 
