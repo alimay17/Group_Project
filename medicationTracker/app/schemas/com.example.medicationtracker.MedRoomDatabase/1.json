@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "eb49462fe6e0bd2a3a200ceae54bfe23",
+    "identityHash": "29f44c63f2df278447e2c5eb58c6e2f0",
     "entities": [
       {
         "tableName": "medication",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `med_name` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `med_name` TEXT, `dose` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,6 +17,12 @@
           {
             "fieldPath": "mName",
             "columnName": "med_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dose",
+            "columnName": "dose",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -34,7 +40,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb49462fe6e0bd2a3a200ceae54bfe23')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '29f44c63f2df278447e2c5eb58c6e2f0')"
     ]
   }
 }

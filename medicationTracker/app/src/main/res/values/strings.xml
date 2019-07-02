@@ -12,5 +12,8 @@
     <string name="newMed">Add New Medication</string>
     <string name="medication_details">Medication Details</string>
     <string name="historyInst">Click on an item to go to the detail page</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="remind_time">Remind Time</string>
+    <string name="dose">Dosage</string>
 
 </resources>

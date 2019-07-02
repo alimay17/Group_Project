@@ -10,21 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import java.util.List;
-import javax.annotation.Nullable;
 
 
 public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
   public static final String TAG = "NewMed";
   public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
-  private EditText mEditMedView;
-  private MedViewModel mMedViewModel;
-  private List<Medication> medList;
+  private EditText medName;
+  private EditText medDose;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +29,9 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
 
     Log.d(TAG, "onCreate: this is add new med");
 
-    mMedViewModel = ViewModelProviders.of(this).get(MedViewModel.class);
-    if(mMedViewModel != null) {
-      medList = mMedViewModel.getmAllMeds().getValue();
 
-      mMedViewModel.getmAllMeds().observe(this, new Observer<List<Medication>>() {
-        @Override
-        public void onChanged(@Nullable final List<Medication> medications) {
-          medList = medications;
-        }
-      });
-    }
-
-    mEditMedView = findViewById(R.id.edit_word);
+    medName = findViewById(R.id.name);
+    medDose = findViewById(R.id.dose);
 
     Button buttonRemind = (Button) findViewById(R.id.button_setReminder);
     buttonRemind.setOnClickListener(new View.OnClickListener() {
@@ -61,12 +47,17 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
       @Override
       public void onClick(View v) {
         Intent replyIntent = new Intent();
-        if(TextUtils.isEmpty(mEditMedView.getText())) {
+        if(TextUtils.isEmpty(medName.getText())) {
           setResult(RESULT_CANCELED, replyIntent);
         } else {
           Log.d(TAG, "onClick: getting user input");
-          String med = mEditMedView.getText().toString();
+          String med = medName.getText().toString();
+          String dose = medDose.getText().toString();
+
+          Log.d(TAG, "onClick: medName: " + med + " medDose: " + dose);
+
           replyIntent.putExtra(EXTRA_REPLY, med);
+          replyIntent.putExtra("dose", dose);
           setResult(RESULT_OK, replyIntent);
         }
         Log.d(TAG, "onClick: added new med");

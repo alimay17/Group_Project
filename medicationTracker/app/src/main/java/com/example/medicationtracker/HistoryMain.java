@@ -80,7 +80,7 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     super.onActivityResult(requestCode, resultCode, data);
 
     if(requestCode == NEW_MED_REQUEST_CODE && resultCode == RESULT_OK) {
-      Medication med = new Medication(data.getStringExtra(NewMed.EXTRA_REPLY));
+      Medication med = new Medication(data.getStringExtra(NewMed.EXTRA_REPLY), data.getStringExtra("dose"));
       mMedViewModel.insert(med);
       Toast.makeText(getApplicationContext(),"Med Added", Toast.LENGTH_LONG).show();
      } else {
@@ -106,6 +106,7 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
 
     Intent intent = new Intent(this, HistoryDetail.class);
     intent.putExtra("medication", med.getName());
+    intent.putExtra("dose", med.getDose());
     startActivity(intent);
   }
 }
