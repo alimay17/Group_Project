@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/edit_word"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_padding"
-        android:layout_marginBottom="@dimen/big_padding"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
         android:hint="@string/hint_word"
         android:importantForAutofill="no"
         android:inputType="textAutoComplete"
         android:padding="@dimen/small_padding"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_save"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_save"
-        android:textColor="@color/buttonLabel" />
-    
+        android:textColor="@color/buttonLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_word" />
+
     <Button
         android:id="@+id/button_setReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Reminder"/>
+        android:text="Set Reminder"
+        app:layout_constraintStart_toStartOf="@+id/button_save"
+        app:layout_constraintTop_toBottomOf="@+id/button_save" />
 
     <TextView
         android:id="@+id/textView_remindTime"
@@ -38,6 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Remind Time"
         android:textSize="30dp"
-        />
+        app:layout_constraintStart_toStartOf="@+id/button_setReminder"
+        app:layout_constraintTop_toBottomOf="@+id/button_setReminder" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
