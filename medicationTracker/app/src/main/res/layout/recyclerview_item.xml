@@ -8,6 +8,8 @@
         style="@style/med_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_orange_light" />
+        android:background="#506A72"
+        android:textColor="#fcfdea"
+        android:textColorLink="#fcfdea" />
 
 </LinearLayout>
