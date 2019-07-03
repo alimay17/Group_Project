@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     Intent intent = new Intent(this, HistoryDetail.class);
     intent.putExtra("medication", med.getName());
     intent.putExtra("dose", med.getDose());
+    intent.putExtra("date", med.getCreated());
     startActivity(intent);
   }
 
