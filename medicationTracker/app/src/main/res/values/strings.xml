@@ -15,5 +15,16 @@
     <string name="set_reminder">Set Reminder</string>
     <string name="remind_time">Remind Time</string>
     <string name="dose">Dosage</string>
+    <string name="enterPassword">Enter Password</string>
+    <string name="enterPasswordText">Enter Password</string>
+    <string name="enterPasswordButton">Submit</string>
+    <string name="userPassword">Enter Password</string>
+    <string name="userPasswordHint">Enter Password</string>
+    <string name="reSetPassword">Re-Set Password</string>
+    <string name="newUserPassword">Enter Password</string>
+    <string name="reEnterNewPassword">Re-enter Password</string>
+    <string name="newUserPasswordText">Enter Password</string>
+    <string name="reEnterNewPasswordTest">Re-enter Password</string>
+    <string name="newEnterPasswordButton">Submit</string>
 
 </resources>
