@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.Timestamp;
+
 public class HistoryDetail extends AppCompatActivity {
 
   private static final String TAG = "HISTORY_DETAIL";
@@ -27,7 +29,8 @@ public class HistoryDetail extends AppCompatActivity {
       String medName = getIntent().getStringExtra("medication");
       String dose = getIntent().getStringExtra("dose");
       Long date = getIntent().getLongExtra("date", 0);
-      displayDetail(medName, dose, date);
+      Timestamp parsedDate = new Timestamp(date);
+      displayDetail(medName, dose, parsedDate);
 
     }
     else {
@@ -35,7 +38,7 @@ public class HistoryDetail extends AppCompatActivity {
     }
   }
 
-  private void displayDetail(String medName, String medDose, Long medDate) {
+  private void displayDetail(String medName, String medDose, Timestamp medDate) {
     Log.d(TAG, "displayImage: setting med to display");
     TextView name = findViewById(R.id.medDetail);
     TextView dose = findViewById(R.id.dose);

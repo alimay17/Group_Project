@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
       final Medication med = medList.get(position);
       Log.d(TAG, "GetCurrentMed: med: " + med.getId() + "  " + med.getName() + " " + med.getDose());
       TextView name = findViewById(R.id.currentMed);
-      name.setText("Name: " + med.getName());
+      name.setText("Your Current Medication\n" + med.getName());
     }
   }
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     Intent intent = new Intent(this, HistoryDetail.class);
     intent.putExtra("medication", med.getName());
     intent.putExtra("dose", med.getDose());
-    intent.putExtra("date", med.getCreated());
+    intent.putExtra("date", med.getCreated().getTime());
     startActivity(intent);
   }
 

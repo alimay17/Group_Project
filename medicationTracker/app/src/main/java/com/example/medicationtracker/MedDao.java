@@ -17,7 +17,7 @@ public interface MedDao {
   @Query("DELETE FROM medication")
   void deleteAll();
 
-  @Query("SELECT * from medication")
+  @Query("SELECT * from medication ORDER BY ID DESC")
   LiveData<List<Medication>> getAllMeds();
 
 }
