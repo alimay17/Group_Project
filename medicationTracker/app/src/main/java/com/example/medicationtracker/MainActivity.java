@@ -16,6 +16,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+/**
+ * This is the Main Activity for the Medication Tracker. This class can add a new medication, displays
+ * the most recent medication and links to history page and links to the medication details page.
+ * @author Rich Terry, Alice Smith, Eric Mott
+ * @version beta
+ */
 public class MainActivity extends AppCompatActivity {
 
   // for debug log

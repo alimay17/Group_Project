@@ -33,6 +33,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         EditText userPassword = findViewById(R.id.userPassword);
         String tempPassword = userPassword.getText().toString();
+        // this if statement
         if (tempPassword.equals(password)){
             startActivity(intent);
             finish();
