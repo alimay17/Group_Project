@@ -7,6 +7,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+/**
+ * This is the page that is first looked at to tell the App where to send the user for password input.
+ * @author Rich Terry, Alice Smith, Eric Mott
+ * @version beta
+ */
 public class SplashPageActivity extends AppCompatActivity {
     String password;
 
