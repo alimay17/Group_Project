@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
       TextView name = findViewById(R.id.currentMed);
       name.setText("no Medication");
     } else {
-      int position = medList.size() - 1;
+      int position = 0;
       final Medication med = medList.get(position);
       Log.d(TAG, "GetCurrentMed: med: " + med.getId() + "  " + med.getName() + " " + med.getDose());
       TextView name = findViewById(R.id.currentMed);
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
   public void getDetail(View view) {
     Log.d(TAG, "Creating intent for HistoryDetail");
 
-    int position = medList.size() - 1;
+    int position = 0;
     final Medication med = medList.get(position);
     Log.d(TAG, "onClick: med: " + med.getName());
 
