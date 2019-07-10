@@ -26,5 +26,6 @@
     <string name="newUserPasswordText">Enter Password</string>
     <string name="reEnterNewPasswordTest">Re-enter Password</string>
     <string name="newEnterPasswordButton">Submit</string>
+    <string name="cancelAllAlarms">Cancel All Alarms</string>
 
 </resources>
