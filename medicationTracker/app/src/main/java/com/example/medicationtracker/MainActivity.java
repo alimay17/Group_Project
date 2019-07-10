@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
       final Medication med = medList.get(position);
       Log.d(TAG, "GetCurrentMed: med: " + med.getId() + "  " + med.getName() + " " + med.getDose());
       TextView name = findViewById(R.id.currentMed);
-      name.setText("Your Current Medication\n" + med.getName());
+      name.setText(med.getName());
     }
   }
 
