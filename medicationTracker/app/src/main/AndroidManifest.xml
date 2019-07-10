@@ -22,6 +22,9 @@
         <activity android:name=".HistoryDetail" />
         <activity android:name=".HistoryMain" />
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SetAlarm"/>
+
+        <receiver android:name=".AlertReceiver"></receiver>
     </application>
 
 </manifest>
