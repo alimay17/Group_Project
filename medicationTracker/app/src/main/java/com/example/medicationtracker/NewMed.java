@@ -1,40 +1,34 @@
 package com.example.medicationtracker;
 
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import org.w3c.dom.Text;
+import java.text.DateFormat;
 
-
-public class NewMed extends AppCompatActivity /*implements TimePickerDialog.OnTimeSetListener*/ {
+public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
   public static final String TAG = "NEW_MED";
   public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
-  public static final int SET_ALARM_REQUEST_CODE = 5;
+
   private EditText medName;
   private EditText medDose;
+  private TextView mTextView;  // time alarm is set for
+  private int alarmID = 0;  // unique alarm ID to set/cancel alarm in system == mAlarmID
+//  private String mAlarmID; // unique alarm ID in String format
+//  private Button buttonRemind;
 
-  public void setTextView(String textView) {
-//    mTextView = textView;
-    mTextView.setText(textView);
-  }
-
-  private TextView mTextView;
-
-  public void setAlarmID(int alarmID) {
-    this.alarmID = alarmID;
-  }
-
-  private int alarmID;
-
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -42,37 +36,61 @@ public class NewMed extends AppCompatActivity /*implements TimePickerDialog.OnTi
 
     Log.d(TAG, "onCreate: this is add new med");
 
-
     medName = findViewById(R.id.name);
     medDose = findViewById(R.id.dose);
-    mTextView = findViewById(R.id.textView_remindTime);
+    mTextView = findViewById(R.id.textView_remindTime);  // this is the time the alarm is set for
 
     Button buttonRemind = (Button) findViewById(R.id.button_setReminder);
     buttonRemind.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (medName.getText().toString().equals("")) {
+        if (medName.getText().toString().equals("")) { // do I need to add || medDose.getText().toString().equals("")  ???
           Toast.makeText(NewMed.this, "Please add a medication", Toast.LENGTH_SHORT).show();
         } else {
           Log.d(TAG, "onClick: Creating Intent before calling SetAlarm");
-          Intent intent = new Intent(NewMed.this, SetAlarm.class);
 
-          //add cancel info ID here as:
-          intent.putExtra("medName", medName.getText().toString());
-          intent.putExtra("medDose", medDose.getText().toString());
-          //intent.putExtra(alarmID, alarmID);
+          createAlarmID(); // creates the unique ID for each alarm - used to add/delete in system
 
-          Log.d(TAG, "onClick: Intent created, calling startActivityForResult");
-          startActivityForResult(intent, SET_ALARM_REQUEST_CODE);  // 1 should be replaced with a constant
+          DialogFragment timePicker = new TimePickerFragment();
+          timePicker.show(getSupportFragmentManager(), "time picker");
 
-          // catching returned data
-          Intent incomingIntent = getIntent();
-          setAlarmID(Integer.parseInt(incomingIntent.getStringExtra("medName"))); // convert alarmID string to int
-          setTextView(incomingIntent.getStringExtra("mTextView"));
+//          updateTimeText(mCalendar);  // update the alarm time on page
+//          startAlarm(mCalendar);  // set the alarm
         }
       }
     });
-    mTextView.setText("test");
+
+    // cancels current alarm in NewMed
+    Button buttonCancel = findViewById(R.id.button_cancel);
+    buttonCancel.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // call local cancelAlarm
+        /*if (alarmID == 0){
+          Toast.makeText(NewMed.this, "No alarm to cancel", Toast.LENGTH_SHORT).show();
+        } else {
+          Log.d(TAG, "onClick: Canceling alarm");
+          cancelAlarm(alarmID);
+          alarmID = 0;
+          Toast.makeText(NewMed.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
+        }*/
+
+        // call cancelAlarm from CancelAlarm class
+        if (alarmID == 0){
+          Toast.makeText(NewMed.this, "No alarm to cancel", Toast.LENGTH_SHORT).show();
+        } else {
+          Log.d(TAG, "onClick: Canceling alarm");
+          CancelAlarm externalCancelAlarm = new CancelAlarm();
+          Log.d(TAG, "onClick: calling cancelAlarm from CancelAlarm");
+          externalCancelAlarm.cancelAlarm(alarmID);
+          Log.d(TAG, "onClick: resetting alarmID to zero");
+          alarmID = 0;
+          Toast.makeText(NewMed.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
+
+    mTextView.setText("Alarm not set");
 
     final Button button = findViewById(R.id.button_save);
     button.setOnClickListener(new View.OnClickListener() {
@@ -92,29 +110,89 @@ public class NewMed extends AppCompatActivity /*implements TimePickerDialog.OnTi
           replyIntent.putExtra("dose", dose);
           setResult(RESULT_OK, replyIntent);
         }
-        Log.d(TAG, "onClick: *****************added new med**************************************************");
+        Log.d(TAG, "onClick: added new med");
         finish();
       }
     });
   }
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
+  // create a unique alarmID
+  public void createAlarmID() {
+    Log.d(TAG, "getAlarmID: create/return alarmID");
+    // unique ID using day/timestamp
+    Calendar calAlarmID = Calendar.getInstance();
+//    int yearID = calAlarmID.get(Calendar.YEAR);
+    int dayID = calAlarmID.get(Calendar.DAY_OF_YEAR);
+    int hourID = calAlarmID.get(Calendar.HOUR_OF_DAY);
+    int minuteID = calAlarmID.get(Calendar.MINUTE);
+    int secondID = calAlarmID.get(Calendar.SECOND);
 
-    if (requestCode == 1) {
-      if (resultCode == RESULT_OK){
-        alarmID = data.getIntExtra("alarmID", 0);
-      }
-      if (resultCode == RESULT_CANCELED){
-        alarmID = 0;
-      }
-    }
+//    int singleDigitYear = (yearID % 10);
+//    String alarmIdBuilder = Integer.toString(yearID - 2000);
+//    String alarmIdBuilder = Integer.toString(singleDigitYear);
+//    alarmIdBuilder += Integer.toString(dayID);
+    String alarmIdBuilder = Integer.toString(dayID);
+    alarmIdBuilder += Integer.toString(hourID);
+    alarmIdBuilder += Integer.toString(minuteID);
+    alarmIdBuilder += Integer.toString(secondID);
+
+    alarmID = Integer.parseInt(alarmIdBuilder);  // alarmID as an Integer
+//    mAlarmID = alarmIdBuilder;
+//    Log.d(TAG, "createAlarmID: alarmID Created: " + alarmID);
+    Log.d(TAG, "createAlarmID: alarmIdBuilder Created: " + alarmIdBuilder);
   }
 
-  /*@Override
+  // takes time sent from timePicker and assigns it to a Calendar - Calendar needed to set the alarm
+  @Override
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-    TextView textView = (TextView)findViewById(R.id.textView_remindTime);
-    textView.setText("Hour " + hourOfDay + " Minute: " + minute);
-  }*/
+    Log.d(TAG, "onTimeSet: loading TimePicker values into Calendar C");
+    Calendar c = Calendar.getInstance();
+    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+    c.set(Calendar.MINUTE, minute);
+    c.set(Calendar.SECOND, 0);
+
+        updateTimeText(c);  // update the alarm time on page
+        startAlarm(c);  // set the alarm
+  }
+
+  // creates the String showing the time the alarm was set for
+  private void updateTimeText(Calendar c) {
+    Log.d(TAG, "updateTimeText: updating alarm time");
+    String timeText = "Alarm set for: ";
+    timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+    mTextView.setText(timeText);
+  }
+
+  // starts the alarm
+  private void startAlarm(Calendar c){
+    Log.d(TAG, "startAlarm: setting alarm");
+
+    String tempNewMed = medName.getText().toString();
+    Log.d(TAG, "startAlarm: tempNewMed is " + tempNewMed);
+
+    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    Intent intent = new Intent(this, AlertReceiver.class);
+    intent.putExtra("medNameKey", tempNewMed);  // **********************************************************************
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmID, intent, 0);
+
+    // if time set in past, add a day to set in future
+    if (c.before(Calendar.getInstance())){
+      Log.d(TAG, "startAlarm: time in past adjustment to future");
+      c.add(Calendar.DATE, 1); // add a day
+    }
+
+    // sends alarm to system - 3 options below: 1 time, repeat every 15 minutes, repeat once a day
+    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent); // original alarm - non-repeating
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);  // repeats daily
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);  // repeats 15 minutes
+  }
+
+  // cancels alarm associated with unique alarmID
+  public void cancelAlarm(int alarmID){
+    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    Intent intent = new Intent(this, AlertReceiver.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmID, intent, 0);
+
+    alarmManager.cancel(pendingIntent);
+  }
 }
