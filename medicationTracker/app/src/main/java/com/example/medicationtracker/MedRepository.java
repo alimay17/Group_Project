@@ -9,7 +9,7 @@ import java.util.List;
 
 /********************************************************************
  * a middleware class to abstract database tasks
- * This is the go-between for the view model class and the DAO class
+ * This is called by the repository class and implements the DAO interface
  *******************************************************************/
 public class MedRepository {
   private MedDao mMedDao;
@@ -55,28 +55,29 @@ public class MedRepository {
     }
   }
 
+
   /********************************************************************
-   * calls the delete
-   * @param med medication to insert
+   * calls the delete med by name function
+   * @param medName medication to delete
    *******************************************************************/
-  public void delete(Medication med) {
-    new deleteAsyncTask(mMedDao).execute(med);
+  public void deleteMed(String medName) {
+    new deleteMedAsyncTask(mMedDao).execute(medName);
   }
 
   /********************************************************************
    * Async task class to handle deletion
    *******************************************************************/
-  private static class deleteAsyncTask extends AsyncTask<Medication, Void, Void> {
+  private static class deleteMedAsyncTask extends AsyncTask<String, Void, Void> {
     private MedDao mAsyncTaskDao;
 
-    // delete the new med
-    deleteAsyncTask(MedDao dao) {
+    // delete the med
+    deleteMedAsyncTask(MedDao dao) {
       mAsyncTaskDao = dao;
     }
 
     @Override
-    protected Void doInBackground(final Medication ... params) {
-      mAsyncTaskDao.insert(params[0]);
+    protected Void doInBackground(final String ... params) {
+      mAsyncTaskDao.deleteMed(params[0]);
       return null;
     }
   }

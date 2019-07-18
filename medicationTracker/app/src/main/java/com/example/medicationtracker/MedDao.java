@@ -3,7 +3,6 @@ package com.example.medicationtracker;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -31,8 +30,8 @@ public interface MedDao {
   /*********************************************
    * deletes selected med from database
    ********************************************/
-  @Delete
-  void delete(Medication deleteMed);
+  @Query("DELETE FROM medication WHERE med_name = :medName")
+  void deleteMed(String medName);
 
   /*******************************************
    * retrieves all medications from database
