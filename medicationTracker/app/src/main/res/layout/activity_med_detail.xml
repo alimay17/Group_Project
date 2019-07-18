@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:onClick="deleteMed"
-    tools:context=".MedDetail">
+    tools:context=".MedDetailActivity">
 
     <TextView
         android:id="@+id/medDetail"

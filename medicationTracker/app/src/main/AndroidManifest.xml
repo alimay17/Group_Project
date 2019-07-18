@@ -19,9 +19,9 @@
         </activity>
         <activity android:name=".EnterPasswordActivity" />
         <activity android:name=".CreatePasswordActivity" />
-        <activity android:name=".NewMed" />
-        <activity android:name=".MedDetail" />
-        <activity android:name=".MedListFull" />
+        <activity android:name=".NewMedActivity" />
+        <activity android:name=".MedDetailActivity" />
+        <activity android:name=".MedListFullActivity" />
         <activity android:name=".MainActivity"></activity>
         <receiver android:name=".AlertReceiver"></receiver>
     </application>

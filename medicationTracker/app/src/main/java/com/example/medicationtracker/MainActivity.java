@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     addNew.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent intent = new Intent(MainActivity.this, NewMed.class);
+        Intent intent = new Intent(MainActivity.this, NewMedActivity.class);
         startActivityForResult(intent, NEW_MED_REQUEST_CODE);
       }
     });
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
 
     if(requestCode == NEW_MED_REQUEST_CODE && resultCode == RESULT_OK) {
-      Medication med = new Medication(data.getStringExtra(NewMed.EXTRA_REPLY), data.getStringExtra("dose"));
+      Medication med = new Medication(data.getStringExtra(NewMedActivity.EXTRA_REPLY), data.getStringExtra("dose"));
       mMedViewModel.insert(med);
       Toast.makeText(getApplicationContext(),"Med Added", Toast.LENGTH_LONG).show();
     } else {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     Log.d(TAG, "onClick: med: " + med.getName());
 
     // set intent with med details.
-    Intent intent = new Intent(this, MedDetail.class);
+    Intent intent = new Intent(this, MedDetailActivity.class);
     intent.putExtra("medication", med.getName());
     intent.putExtra("dose", med.getDose());
     intent.putExtra("date", med.getCreated().getTime());
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
    *******************************************************************/
   public void getHistory(View view){
     Log.d(TAG, "Creating intent for MedListFull");
-    Intent intent = new Intent(this, MedListFull.class);
+    Intent intent = new Intent(this, MedListFullActivity.class);
     startActivity(intent);
   }
 

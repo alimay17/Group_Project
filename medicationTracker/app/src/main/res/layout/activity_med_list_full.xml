@@ -5,7 +5,7 @@
     android:id="@+id/historyMainHeading"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MedListFull">
+    tools:context=".MedListFullActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rView"
