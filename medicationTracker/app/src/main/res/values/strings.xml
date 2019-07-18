@@ -1,31 +1,34 @@
 <resources>
     <string name="app_name">Medication Tracker</string>
-    <string name="buttonHistory">Get History</string>
-    <string name="pageHeading">This is History Main</string>
-    <string name="buttonHistoryDetail">Get History Details</string>
+    <string name="buttonFullList">View All Medications</string>
+    <string name="pageHeading">Your Medications List</string>
+    <string name="buttonHistoryDetail">Get Medication Details</string>
     <string name="pageHeading02">This Is History Details</string>
-    <string name="welcomeMessage">Medication Tracker App (currently under Construction)</string>
+    <string name="welcomeMessage">Medication Tracker</string>
     <string name="hint_word">Medication Name...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Medication not saved because it is empty.</string>
-    <string name="medName">Current Medication</string>
+    <string name="medName">Your Current Medication</string>
     <string name="newMed">Add New Medication</string>
     <string name="medication_details">Medication Details</string>
-    <string name="historyInst">Click on an item to go to the detail page</string>
     <string name="set_reminder">Set Reminder</string>
     <string name="remind_time">Remind Time</string>
     <string name="dose">Dosage</string>
     <string name="enterPassword">Enter Password</string>
-    <string name="enterPasswordText">Enter Password</string>
+    <string name="enterPasswordText">To get started please enter a passcode</string>
     <string name="enterPasswordButton">Submit</string>
-    <string name="userPassword">Enter Password</string>
+    <string name="userPassword">Please enter your password</string>
     <string name="userPasswordHint">Enter Password</string>
     <string name="reSetPassword">Re-Set Password</string>
     <string name="newUserPassword">Enter Password</string>
-    <string name="reEnterNewPassword">Re-enter Password</string>
+    <string name="reEnterNewPassword">Please Re-enter your passcode</string>
     <string name="newUserPasswordText">Enter Password</string>
     <string name="reEnterNewPasswordTest">Re-enter Password</string>
     <string name="newEnterPasswordButton">Submit</string>
     <string name="cancelAllAlarms">Cancel All Alarms</string>
+    <string name="newLogin">Welcome to Medication Tracker</string>
+    <string name="login">Welcome Back</string>
+    <string name="delete">Delete Medication</string>
+    <string name="historyInst">Click on an item to view the details</string>
 
 </resources>

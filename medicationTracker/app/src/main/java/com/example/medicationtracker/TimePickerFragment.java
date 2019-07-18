@@ -11,6 +11,9 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 
+/********************************************************************
+ * fragment class to create a time picker dialogue to set alarms
+ *******************************************************************/
 public class TimePickerFragment extends DialogFragment {
   @NonNull
   @Override

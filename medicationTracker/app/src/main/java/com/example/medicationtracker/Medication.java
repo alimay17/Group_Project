@@ -10,32 +10,40 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-// Annotations are for the db functionality.
+/********************************************************************
+ * A class to define a medication.
+ * Member variables are id, name, dose, date created, and list of alarms
+ * annotations are for db functionality
+ *******************************************************************/
 @Entity(tableName = "medication")
 public class Medication {
 
+  // auto created by the db for tracking purposes
   @PrimaryKey(autoGenerate = true)
   private int id;
 
-
+  // medication name
   @ColumnInfo(name = "med_name")
   private String mName;
+
+  // dosage
   private String dose;
 
+  // date created
   @TypeConverters(Converters.class)
   private Date created;
 
+  // list of alarms for medication
   @TypeConverters(Converters.class)
   private List<Integer> medAlarms;
 
-
+  // constructor
   public Medication(String mName, String dose) {
     this.mName = mName;
     this.dose = dose;
     Timestamp ts = new Timestamp(System.currentTimeMillis());
     created = ts;
   }
-
 
   // getters
   public int getId() { return this.id; }
