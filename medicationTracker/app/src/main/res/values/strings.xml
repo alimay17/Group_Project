@@ -6,7 +6,7 @@
     <string name="pageHeading02">This Is History Details</string>
     <string name="welcomeMessage">Medication Tracker</string>
     <string name="hint_word">Medication Name...</string>
-    <string name="button_save">Save</string>
+    <string name="button_save">Save Medication</string>
     <string name="empty_not_saved">Medication not saved because it is empty.</string>
     <string name="medName">Your Current Medication</string>
     <string name="newMed">Add New Medication</string>
@@ -30,5 +30,8 @@
     <string name="login">Welcome Back</string>
     <string name="delete">Delete Medication</string>
     <string name="historyInst">Click on an item to view the details</string>
+    <string name="homeButton">Back to Home</string>
+    <string name="cancel_alarm">Cancel Alarm</string>
+    <string name="addMed">Enter a New Medication</string>
 
 </resources>

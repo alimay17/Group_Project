@@ -114,4 +114,10 @@ public class MedListFull extends AppCompatActivity implements OnItemClickListene
     intent.putExtra("date", med.getCreated());
     startActivity(intent);
   }
+
+  public void returnHome(View view) {
+    Log.d(TAG, "returnHome: creating intent for main activity");
+    Intent intent = new Intent(this, MainActivity.class);
+    startActivity(intent);
+  }
 }

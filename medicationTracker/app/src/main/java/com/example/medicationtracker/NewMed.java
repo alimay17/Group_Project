@@ -21,6 +21,10 @@ import androidx.fragment.app.DialogFragment;
 
 import java.text.DateFormat;
 
+/******************************************************************
+ * activity class to create a new medication to add to database
+ * includes functions for alarm reminder creation
+ *****************************************************************/
 public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
   public static final String TAG = "NEW_MED";
@@ -33,7 +37,11 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
 //  private String mAlarmID; // unique alarm ID in String format
 //  private Button buttonRemind;
 
-  
+  /******************************************************************
+   * initialize view, gets user input and sets click listener for alarms
+   * and save buttons
+   * @param savedInstanceState
+   *****************************************************************/
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -41,21 +49,25 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
 
     Log.d(TAG, "onCreate: this is add new med");
 
+    // get user input
     medName = findViewById(R.id.name);
     medDose = findViewById(R.id.dose);
-    mTextView = findViewById(R.id.textView_remindTime);  // this is the time the alarm is set for
+    mTextView = findViewById(R.id.textView_remindTime);
 
+    // set alarm button with click listener
     Button buttonRemind = (Button) findViewById(R.id.button_setReminder);
     buttonRemind.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (medName.getText().toString().equals("")) { // do I need to add || medDose.getText().toString().equals("")  ???
+        if (medName.getText().toString().equals("")) {
           Toast.makeText(NewMed.this, "Please add a medication", Toast.LENGTH_SHORT).show();
         } else {
           Log.d(TAG, "onClick: Creating Intent before calling SetAlarm");
 
-          createAlarmID(); // creates the unique ID for each alarm - used to add/delete in system
+          // creates the unique ID for each alarm - used to add/delete in system
+          createAlarmID();
 
+          // set time fragment
           DialogFragment timePicker = new TimePickerFragment();
           timePicker.show(getSupportFragmentManager(), "time picker");
 
@@ -71,15 +83,16 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
       @Override
       public void onClick(View v) {
         // call local cancelAlarm
-        /*if (alarmID == 0){
+        if (alarmID == 0){
           Toast.makeText(NewMed.this, "No alarm to cancel", Toast.LENGTH_SHORT).show();
         } else {
           Log.d(TAG, "onClick: Canceling alarm");
           cancelAlarm(alarmID);
           alarmID = 0;
           Toast.makeText(NewMed.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
-        }*/
+        }
 
+        /*
         // call cancelAlarm from CancelAlarm class
         if (alarmID == 0){
           Toast.makeText(NewMed.this, "No alarm to cancel", Toast.LENGTH_SHORT).show();
@@ -91,16 +104,20 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
           Log.d(TAG, "onClick: resetting alarmID to zero");
           alarmID = 0;
           Toast.makeText(NewMed.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
-        }
+        } */
       }
     });
 
+    // message for alarm
     mTextView.setText("Alarm not set");
 
+    // save med button
     final Button button = findViewById(R.id.button_save);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+        // create intent with user input
         Intent replyIntent = new Intent();
         if(TextUtils.isEmpty(medName.getText())) {
           setResult(RESULT_CANCELED, replyIntent);
@@ -115,13 +132,16 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
           replyIntent.putExtra("dose", dose);
           setResult(RESULT_OK, replyIntent);
         }
+        // returns to caller activity to add to db
         Log.d(TAG, "onClick: added new med");
         finish();
       }
     });
   }
 
-  // create a unique alarmID
+  /*****************************************************************
+   * create unique alarm id
+   ****************************************************************/
   public void createAlarmID() {
     Log.d(TAG, "getAlarmID: create/return alarmID");
     // unique ID using day/timestamp
@@ -147,7 +167,13 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
     Log.d(TAG, "createAlarmID: alarmIdBuilder Created: " + alarmIdBuilder);
   }
 
-  // takes time sent from timePicker and assigns it to a Calendar - Calendar needed to set the alarm
+  /*******************************************************************
+   * takes time sent from timePicker and assigns it to a Calendar
+   * Calendar needed to set the alarm
+   * @param view time picker fragment
+   * @param hourOfDay hour
+   * @param minute minute
+   ******************************************************************/
   @Override
   public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
     Log.d(TAG, "onTimeSet: loading TimePicker values into Calendar C");
@@ -160,7 +186,11 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
         startAlarm(c);  // set the alarm
   }
 
-  // creates the String showing the time the alarm was set for
+  /*******************************************************************
+   * creates the String showing the time the alarm was set for
+   * @param c calendar to set alarm
+   ******************************************************************/
+
   private void updateTimeText(Calendar c) {
     Log.d(TAG, "updateTimeText: updating alarm time");
     String timeText = "Alarm set for: ";
@@ -168,7 +198,10 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
     mTextView.setText(timeText);
   }
 
-  // starts the alarm
+  /*******************************************************************
+   * starts the alarm
+   * @param c calendar
+   ******************************************************************/
   private void startAlarm(Calendar c){
     Log.d(TAG, "startAlarm: setting alarm");
 
@@ -192,12 +225,14 @@ public class NewMed extends AppCompatActivity implements TimePickerDialog.OnTime
 //        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);  // repeats 15 minutes
   }
 
-  // cancels alarm associated with unique alarmID
+  /*******************************************************************
+   * cancels alarm associated with unique alarmID
+   * @param alarmID to delete alarm
+   ******************************************************************/
   public void cancelAlarm(int alarmID){
     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(this, AlertReceiver.class);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmID, intent, 0);
-
     alarmManager.cancel(pendingIntent);
   }
 }

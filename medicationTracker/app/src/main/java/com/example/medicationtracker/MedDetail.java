@@ -84,4 +84,11 @@ public class MedDetail extends AppCompatActivity {
     Intent intent = new Intent(this, MedListFull.class);
     startActivity(intent);
   }
+
+  // return home
+  public void returnHome(View view) {
+    Log.d(TAG, "returnHome: creating intent for main activity");
+    Intent intent = new Intent(this, MainActivity.class);
+    startActivity(intent);
+  }
 }
