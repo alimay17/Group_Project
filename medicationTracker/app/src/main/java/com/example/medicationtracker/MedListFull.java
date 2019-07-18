@@ -17,31 +17,32 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class HistoryMain extends AppCompatActivity implements OnItemClickListener {
+/******************************************************************
+ * Defines the full medication list activity and related functions.
+ *******************************************************************/
+public class MedListFull extends AppCompatActivity implements OnItemClickListener {
 
-  // debug tag, new med request code, med view object
+  // member variables for debug tag, new med request code, med view object
   private static final String TAG = "HISTORY_MAIN";
   public static final int NEW_MED_REQUEST_CODE = 1;
   private MedViewModel mMedViewModel;
   private List<Medication> medications;
 
-  /**
-   * When activity is created
+  /******************************************************************
+   * Initializes view and db access for display
    * @param savedInstanceState
-   */
+   *******************************************************************/
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Log.d(TAG, "This is History MAIN");
 
     // get view layout
-    setContentView(R.layout.activity_history_main);
+    setContentView(R.layout.activity_med_list_full);
     mMedViewModel = ViewModelProviders.of(this).get(MedViewModel.class);
 
-    //Log.d(TAG, "onCreate: medications: " + medications);
-
+    // for med list
     RecyclerView recyclerView = findViewById(R.id.rView);
-
 
     // set view adapter
     final MedListAdapter adapter = new MedListAdapter(this);
@@ -53,6 +54,8 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
 
     // listener for db updates
     mMedViewModel.getmAllMeds().observe(this, new Observer<List<Medication>>() {
+
+      // displays medication list
       @Override
       public void onChanged(@Nullable final List<Medication> medications) {
         adapter.setMeds(medications);
@@ -64,18 +67,18 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     addNew2.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent intent = new Intent(HistoryMain.this, NewMed.class);
+        Intent intent = new Intent(MedListFull.this, NewMed.class);
         startActivityForResult(intent, NEW_MED_REQUEST_CODE);
       }
     });
   }
 
-  /**
-   * when new med has been created
-   * @param requestCode
-   * @param resultCode
-   * @param data
-   */
+  /******************************************************************
+   * Handles the results of the new med intent
+   * @param requestCode to verify med creation
+   * @param resultCode result of the new med intent
+   * @param data user data from the new med class / activity
+   *******************************************************************/
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
@@ -91,10 +94,10 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     }
   }
 
-  /**
-   * to send selected med to history detail activity.
-   * @param view
-   */
+  /******************************************************************
+   * sends selected med to medication detail activity.
+   * @param view to create intent
+   *****************************************************************/
   public void onClick(View view, int position) {
     Log.d(TAG, "onClick: position:" + position);
     Log.d(TAG, "Creating intent for HistoryDetail");
@@ -104,7 +107,8 @@ public class HistoryMain extends AppCompatActivity implements OnItemClickListene
     Log.d(TAG, "onClick: med: " + med.getId() + "  " + med.getName());
 
 
-    Intent intent = new Intent(this, HistoryDetail.class);
+    // set intent with medicaiton details
+    Intent intent = new Intent(this, MedDetail.class);
     intent.putExtra("medication", med.getName());
     intent.putExtra("dose", med.getDose());
     intent.putExtra("date", med.getCreated());

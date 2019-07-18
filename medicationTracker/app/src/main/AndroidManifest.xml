@@ -20,11 +20,9 @@
         <activity android:name=".EnterPasswordActivity" />
         <activity android:name=".CreatePasswordActivity" />
         <activity android:name=".NewMed" />
-        <activity android:name=".HistoryDetail" />
-        <activity android:name=".HistoryMain" />
+        <activity android:name=".MedDetail" />
+        <activity android:name=".MedListFull" />
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SetAlarm"/>
-
         <receiver android:name=".AlertReceiver"></receiver>
     </application>
 

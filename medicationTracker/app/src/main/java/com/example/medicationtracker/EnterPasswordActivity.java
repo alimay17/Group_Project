@@ -1,74 +1,86 @@
 package com.example.medicationtracker;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.view.View;
-import android.util.Log;
 
-/**
- * This is the enter password activity. It has the option to re-set the password with a valid
- * password. It will either take the user to the Main activity or create password depending on
- * what button is pushed.
- */
+import androidx.appcompat.app.AppCompatActivity;
+
+/********************************************************************
+ * Class to define user login with password.
+ * It has option to re-set the password with a valid password.
+ * This is the default enter activity to prevent unauthorized access
+ *******************************************************************/
 public class EnterPasswordActivity extends AppCompatActivity {
-    public static final String TAG = "EnterPasswordActivity";
-    String password;
+  public static final String TAG = "EnterPasswordActivity";
+  String password;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enter_password);
+  /********************************************************************
+   * Initializes view for activity
+   * @param savedInstanceState
+   *******************************************************************/
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_enter_password);
+  }
+
+  /********************************************************************
+   * Gets and validates user password. If valid redirects to the Home
+   * @param view for intent
+   *******************************************************************/
+  public void enterPassword(View view){
+
+    // get existing password
+    SharedPreferences settings = getSharedPreferences("PREFS", 0);
+    password = settings.getString("password", "");
+
+    // get user input
+    EditText userPassword = findViewById(R.id.userPassword);
+    String tempPassword = userPassword.getText().toString();
+
+    // if passwords match send intent to main activity
+    if (tempPassword.equals(password)){
+      Intent intent = new Intent(this, MainActivity.class);
+      startActivity(intent);
+      finish();
+      Log.d(TAG, "enterPassword: Password Matched");
     }
-
-    /**
-     * This is to check password and go to the MainActivity
-     * @param view
-     */
-    public void enterPassword(View view){
-        SharedPreferences settings = getSharedPreferences("PREFS", 0);
-        password = settings.getString("password", "");
-        Intent intent = new Intent(this, MainActivity.class);
-        EditText userPassword = findViewById(R.id.userPassword);
-        String tempPassword = userPassword.getText().toString();
-        // this if statement
-        if (tempPassword.equals(password)){
-            startActivity(intent);
-            finish();
-            Log.d(TAG, "enterPassword: Password Matched");
-        }
-        // if the passwords don't match
-        else {
-            Toast.makeText(EnterPasswordActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
-        }
+    // if passwords don't match send toast
+    else {
+      Toast.makeText(EnterPasswordActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
     }
+  }
 
-    /**
-     * This is for the re-set password. It checks for a correct password and goes to Create Password
-     * Activity
-     * @param view
-     */
-    public void reSetPassword(View view){
-        SharedPreferences settings = getSharedPreferences("PREFS", 0);
-        password = settings.getString("password", "");
-        Intent intent = new Intent(this, CreatePasswordActivity.class);
-        EditText userPassword = findViewById(R.id.userPassword);
-        String tempPassword = userPassword.getText().toString();
-       // Password matched and going to change password activity
-        if (tempPassword.equals(password)){
-            startActivity(intent);
-            finish();
-            Log.d(TAG, "enterPassword: Password Matched now re-setting password");
-        }
-        // If the passwords don't match
-        else {
-            Toast.makeText(EnterPasswordActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
-        }
+  /**********************************************************************
+   * handles reset password. Check for a valid password before redirecting
+   * to create new password page
+   * @param view for intent
+   *********************************************************************/
+  public void reSetPassword(View view){
 
+    // get existing password
+    SharedPreferences settings = getSharedPreferences("PREFS", 0);
+    password = settings.getString("password", "");
+
+    // get user input
+    EditText userPassword = findViewById(R.id.userPassword);
+    String tempPassword = userPassword.getText().toString();
+
+    // if passwords match send intent to change password activity
+    if (tempPassword.equals(password)){
+      Intent intent = new Intent(this, CreatePasswordActivity.class);
+      startActivity(intent);
+      finish();
+      Log.d(TAG, "enterPassword: Password Matched now re-setting password");
     }
-
+    // If the passwords don't match send toast
+    else {
+      Toast.makeText(EnterPasswordActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
+    }
+  }
 }

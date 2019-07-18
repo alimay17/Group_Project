@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
@@ -9,7 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#506A72"
+        android:fontFamily="sans-serif-light"
+        android:padding="4dp"
+        android:textAlignment="center"
         android:textColor="#fcfdea"
-        android:textColorLink="#fcfdea" />
+        android:textColorLink="#fcfdea"
+        android:typeface="normal" />
 
 </LinearLayout>

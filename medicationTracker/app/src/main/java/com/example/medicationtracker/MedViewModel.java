@@ -7,6 +7,10 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+/********************************************************************
+ * middleware class to help abstract database functionality
+ * this is the go between for activity classes and the repository class
+ *******************************************************************/
 public class MedViewModel extends AndroidViewModel {
 
   // reference repository
@@ -27,4 +31,7 @@ public class MedViewModel extends AndroidViewModel {
 
   // insert
   public void insert(Medication med) { mRepository.insert(med); }
+
+  // delete
+  public void delete(Medication med) {mRepository.delete(med);}
 }

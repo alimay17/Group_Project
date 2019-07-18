@@ -2,6 +2,10 @@ package com.example.medicationtracker;
 
 import android.os.AsyncTask;
 
+/********************************************************************
+ * Helper class to populate the database. Can set it to insert
+ * pre-defined data
+ *******************************************************************/
 public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
   private final MedDao mDao;
 

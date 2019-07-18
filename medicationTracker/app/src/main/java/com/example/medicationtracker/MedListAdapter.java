@@ -10,40 +10,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/********************************************************************
+ * A class to define a recycler view for medication display
+ *******************************************************************/
 public class MedListAdapter extends RecyclerView.Adapter<MedListAdapter.MedViewHolder> {
 
-  // layout
+  // member variables of layout, medication data, and click listener
   private final LayoutInflater mInflater;
-
-  // medication data
   private List<Medication> mMeds;
-
-  // listener
   private OnItemClickListener clickListener;
 
-  /**
-   * constructor
-   * @param context
-   */
+  // constructor
   MedListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
-  /**
-   * When the view is created
-   * @param parent
-   * @param viewType
-   * @return
-   */
+  /********************************************************************
+   * Handles when view is created
+   * @param parent the holder on activity page
+   * @param viewType an integer to define view type
+   * @return the new view
+   *******************************************************************/
   @Override
   public MedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
     return new MedViewHolder(itemView);
   }
 
-  /**
+  /********************************************************************
    * bind the view and set the items.
-   * @param holder
-   * @param position
-   */
+   * @param holder container for all items
+   * @param position where to place items
+   *******************************************************************/
   @Override public void onBindViewHolder(MedViewHolder holder, int position) {
     if(mMeds != null) {
       Medication current = mMeds.get(position);
@@ -53,26 +49,26 @@ public class MedListAdapter extends RecyclerView.Adapter<MedListAdapter.MedViewH
     }
   }
 
-  /**
-   * sets medications to updated list.
-   * @param meds
-   */
+  /********************************************************************
+   * sets medications to updated list, and sends notification of change
+   * @param meds list of all current meds
+   *******************************************************************/
   void setMeds(List<Medication> meds) {
     mMeds = meds;
     notifyDataSetChanged();
   }
 
-  /**
+  /********************************************************************
    * Sets the listener
-   */
+   *******************************************************************/
   public void setClickListener(OnItemClickListener itemClickListener) {
     this.clickListener = itemClickListener;
   }
 
-  /**
+  /********************************************************************
    * gets a count of how may items exist
-   * @return
-   */
+   * @return total number of items in med list
+   *******************************************************************/
   @Override
   public int getItemCount() {
     if(mMeds != null)
@@ -80,22 +76,23 @@ public class MedListAdapter extends RecyclerView.Adapter<MedListAdapter.MedViewH
     else return 0;
   }
 
-  /**
-   * Class to hold the view
-   */
+  /********************************************************************
+   * nested class to hold the view
+   *******************************************************************/
   class MedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final TextView medItemView;
 
+    // initialized new view
     private MedViewHolder(View itemView) {
       super(itemView);
       medItemView = itemView.findViewById(R.id.textView);
       itemView.setOnClickListener(this);
     }
 
+    // click listener
     @Override
     public void onClick(View view) {
       if(clickListener != null) clickListener.onClick(view, getAdapterPosition());
     }
   }
-
 }
