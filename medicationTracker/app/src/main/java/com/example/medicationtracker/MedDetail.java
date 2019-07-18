@@ -1,5 +1,6 @@
 package com.example.medicationtracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import java.sql.Timestamp;
 
@@ -18,6 +20,9 @@ public class MedDetail extends AppCompatActivity {
   // for debug
   private static final String TAG = "MEDICATION_DETAIL";
 
+  // db interface
+  private MedViewModel mMedViewModel;
+
   /********************************************************************
    * initializes the display and catches the incoming intent
    * @param savedInstanceState
@@ -26,6 +31,9 @@ public class MedDetail extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_med_detail);
+
+    // get database
+    mMedViewModel = ViewModelProviders.of(this).get(MedViewModel.class);
     Log.d(TAG, "This is History Detail");
     getIncomingIntent();
   }
@@ -70,7 +78,10 @@ public class MedDetail extends AppCompatActivity {
    * @param view for intent
    *******************************************************************/
   public void deleteMed(View view) {
-    Log.d(TAG, "deleteMed: about to delete medication");
-
+    String dMed = getIntent().getStringExtra("medication");
+    Log.d(TAG, "deleteMed: about to delete medication: " + dMed);
+    mMedViewModel.deleteMed(dMed);
+    Intent intent = new Intent(this, MedListFull.class);
+    startActivity(intent);
   }
 }

@@ -26,12 +26,12 @@ public class MedViewModel extends AndroidViewModel {
     mAllMeds = mRepository.getAllMeds();
   }
 
-  // getter
+  // get full med list
   public LiveData<List<Medication>> getmAllMeds() { return mAllMeds; }
 
   // insert
   public void insert(Medication med) { mRepository.insert(med); }
 
-  // delete
-  public void delete(Medication med) {mRepository.delete(med);}
+  // delete med by name
+  public void deleteMed(String med) {mRepository.deleteMed(med);}
 }
