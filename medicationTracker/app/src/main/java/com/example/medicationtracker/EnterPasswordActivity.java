@@ -51,6 +51,12 @@ public class EnterPasswordActivity extends AppCompatActivity {
     // get user input
     EditText userPassword = findViewById(R.id.userPassword);
     String tempPassword = userPassword.getText().toString();
+
+    if(tempPassword.isEmpty()){
+      Toast.makeText(EnterPasswordActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+      return;
+    }
+
     char[] securePWD = tempPassword.toCharArray();
 
     // compare passwords
@@ -76,16 +82,37 @@ public class EnterPasswordActivity extends AppCompatActivity {
    *********************************************************************/
   public void reSetPassword(View view){
 
-    // get existing password
+    // get shared preferences
     SharedPreferences settings = getSharedPreferences("PREFS", 0);
     password = settings.getString("password", "");
+    hashSalt = settings.getString("pwdSalt", "");
+
+    Log.d(TAG, "reSetPassword: got shared preferences");
 
     // get user input
     EditText userPassword = findViewById(R.id.userPassword);
     String tempPassword = userPassword.getText().toString();
+    if(tempPassword.isEmpty()){
+      Toast.makeText(EnterPasswordActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
+      return;
+    }
+    char[] securePWD = tempPassword.toCharArray();
+    Log.d(TAG, "reSetPassword: " + tempPassword);
 
-    // if passwords match send intent to change password activity
-    if (tempPassword.equals(password)){
+    Log.d(TAG, "reSetPassword: got user input");
+
+    // decode from shared preferences back to byte to verify hash and salt
+    byte[] salt = Base64.getDecoder().decode(hashSalt);
+    byte[] decodePWD = Base64.getDecoder().decode(password);
+    Log.d(TAG, "reSetPassword: decoded hash");
+
+
+    // compare passwords
+    boolean match = Passwords.isExpectedPassword(securePWD,salt,decodePWD);
+    Log.d(TAG, "reSetPassword: verifying password");
+
+    // if passwords match send intent to main activity
+    if (match){
       Intent intent = new Intent(this, CreatePasswordActivity.class);
       startActivity(intent);
       finish();
