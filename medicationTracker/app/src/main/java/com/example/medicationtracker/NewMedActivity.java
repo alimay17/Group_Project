@@ -34,8 +34,6 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
   private EditText medDose;
   private TextView mTextView;  // time alarm is set for
   private int alarmID = 0;  // unique alarm ID to set/cancel alarm in system == mAlarmID
-//  private String mAlarmID; // unique alarm ID in String format
-//  private Button buttonRemind;
 
   /******************************************************************
    * initialize view, gets user input and sets click listener for alarms
@@ -70,9 +68,6 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
           // set time fragment
           DialogFragment timePicker = new TimePickerFragment();
           timePicker.show(getSupportFragmentManager(), "time picker");
-
-//          updateTimeText(mCalendar);  // update the alarm time on page
-//          startAlarm(mCalendar);  // set the alarm
         }
       }
     });
@@ -91,20 +86,6 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
           alarmID = 0;
           Toast.makeText(NewMedActivity.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
         }
-
-        /*
-        // call cancelAlarm from CancelAlarm class
-        if (alarmID == 0){
-          Toast.makeText(NewMed.this, "No alarm to cancel", Toast.LENGTH_SHORT).show();
-        } else {
-          Log.d(TAG, "onClick: Canceling alarm");
-          CancelAlarm externalCancelAlarm = new CancelAlarm();
-          Log.d(TAG, "onClick: calling cancelAlarm from CancelAlarm");
-          externalCancelAlarm.cancelAlarm(alarmID);
-          Log.d(TAG, "onClick: resetting alarmID to zero");
-          alarmID = 0;
-          Toast.makeText(NewMed.this, "Alarm canceled", Toast.LENGTH_SHORT).show();
-        } */
       }
     });
 
@@ -148,24 +129,17 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
     Log.d(TAG, "getAlarmID: create/return alarmID");
     // unique ID using day/timestamp
     Calendar calAlarmID = Calendar.getInstance();
-//    int yearID = calAlarmID.get(Calendar.YEAR);
     int dayID = calAlarmID.get(Calendar.DAY_OF_YEAR);
     int hourID = calAlarmID.get(Calendar.HOUR_OF_DAY);
     int minuteID = calAlarmID.get(Calendar.MINUTE);
     int secondID = calAlarmID.get(Calendar.SECOND);
 
-//    int singleDigitYear = (yearID % 10);
-//    String alarmIdBuilder = Integer.toString(yearID - 2000);
-//    String alarmIdBuilder = Integer.toString(singleDigitYear);
-//    alarmIdBuilder += Integer.toString(dayID);
     String alarmIdBuilder = Integer.toString(dayID);
     alarmIdBuilder += Integer.toString(hourID);
     alarmIdBuilder += Integer.toString(minuteID);
     alarmIdBuilder += Integer.toString(secondID);
 
     alarmID = Integer.parseInt(alarmIdBuilder);  // alarmID as an Integer
-//    mAlarmID = alarmIdBuilder;
-//    Log.d(TAG, "createAlarmID: alarmID Created: " + alarmID);
     Log.d(TAG, "createAlarmID: alarmIdBuilder Created: " + alarmIdBuilder);
   }
 
@@ -212,7 +186,7 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
 
     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(this, AlertReceiver.class);
-    intent.putExtra("medNameKey", tempNewMed);  // **********************************************************************
+    intent.putExtra("medNameKey", tempNewMed);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmID, intent, 0);
 
     // if time set in past, add a day to set in future
@@ -222,9 +196,9 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
     }
 
     // sends alarm to system - 3 options below: 1 time, repeat every 15 minutes, repeat once a day
-    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent); // original alarm - non-repeating
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);  // repeats daily
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);  // repeats 15 minutes
+    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent); // non-repeating
+    //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);  // repeats daily
+    //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);  // repeats 15 minutes
   }
 
   /*******************************************************************
@@ -236,5 +210,6 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
     Intent intent = new Intent(this, AlertReceiver.class);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmID, intent, 0);
     alarmManager.cancel(pendingIntent);
+    mTextView.setText("Alarm canceled");
   }
 }
