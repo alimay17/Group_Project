@@ -43,6 +43,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
     password = settings.getString("password", "");
     hashSalt = settings.getString("pwdSalt", "");
 
+    // decode back to byte to verify hash and salt
     byte[] salt = Base64.getDecoder().decode(hashSalt);
     byte[] decodePWD = Base64.getDecoder().decode(password);
 
@@ -50,9 +51,9 @@ public class EnterPasswordActivity extends AppCompatActivity {
     // get user input
     EditText userPassword = findViewById(R.id.userPassword);
     String tempPassword = userPassword.getText().toString();
-
     char[] securePWD = tempPassword.toCharArray();
 
+    // compare passwords
     boolean match = Passwords.isExpectedPassword(securePWD,salt,decodePWD);
 
     // if passwords match send intent to main activity
