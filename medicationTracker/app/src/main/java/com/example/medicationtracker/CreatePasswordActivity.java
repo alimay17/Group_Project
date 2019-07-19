@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
 /******************************************************************
  * Class to define password creation
@@ -60,15 +61,21 @@ public class CreatePasswordActivity extends AppCompatActivity {
     // Saving the password
     else{
       if (newPWD.equals(pwdVerify)) {
+
+        // get salt and prepare pwd for hash
         char[] securePWD = newPWD.toCharArray();
         byte[] salt = Passwords.getNextSalt();
-        String newSecurePWD = Passwords.hash(securePWD,salt).toString();
-        String hashSalt = new String(salt, "UTF-8");
+
+        // hash pwd and encode as base64 to save in shared preferences
+        byte [] newSecurePWD = Passwords.hash(securePWD,salt);
+        String encodedPWD = Base64.getEncoder().encodeToString(newSecurePWD);
+        String stringSalt = Base64.getEncoder().encodeToString(salt);
+
         // Saving the password to Shared Preferences and going to MainActivity
         SharedPreferences settings = getSharedPreferences("PREFS", 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("password", newSecurePWD);
-        editor.putString("pwdSalt", hashSalt);
+        editor.putString("password", encodedPWD);
+        editor.putString("pwdSalt", stringSalt);
         editor.apply();
         startActivity(intent);
         finish();

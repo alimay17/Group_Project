@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
 /********************************************************************
  * Class to define user login with password.
@@ -36,22 +36,24 @@ public class EnterPasswordActivity extends AppCompatActivity {
    * Gets and validates user password. If valid redirects to the Home
    * @param view for intent
    *******************************************************************/
-  public void enterPassword(View view) throws UnsupportedEncodingException {
+  public void enterPassword(View view) {
 
     // get existing password
     SharedPreferences settings = getSharedPreferences("PREFS", 0);
     password = settings.getString("password", "");
     hashSalt = settings.getString("pwdSalt", "");
-    byte[] salt = hashSalt.getBytes("UTF-8");
+
+    byte[] salt = Base64.getDecoder().decode(hashSalt);
+    byte[] decodePWD = Base64.getDecoder().decode(password);
+
 
     // get user input
     EditText userPassword = findViewById(R.id.userPassword);
     String tempPassword = userPassword.getText().toString();
+
     char[] securePWD = tempPassword.toCharArray();
-    Log.d(TAG, "enterPassword: " + securePWD.toString() + password);
-    Log.d(TAG, "enterPassword: " + hashSalt + " " + salt);
-    //byte[] salt = Passwords.getNextSalt();
-    boolean match = Passwords.isExpectedPassword(securePWD,salt,password.getBytes());
+
+    boolean match = Passwords.isExpectedPassword(securePWD,salt,decodePWD);
 
     // if passwords match send intent to main activity
     if (match){
