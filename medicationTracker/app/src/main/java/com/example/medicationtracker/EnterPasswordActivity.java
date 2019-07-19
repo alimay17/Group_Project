@@ -52,6 +52,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
     EditText userPassword = findViewById(R.id.userPassword);
     String tempPassword = userPassword.getText().toString();
 
+    // check if user input is empty
     if(tempPassword.isEmpty()){
       Toast.makeText(EnterPasswordActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
       return;
@@ -92,6 +93,8 @@ public class EnterPasswordActivity extends AppCompatActivity {
     // get user input
     EditText userPassword = findViewById(R.id.userPassword);
     String tempPassword = userPassword.getText().toString();
+
+    // check if user input is empty
     if(tempPassword.isEmpty()){
       Toast.makeText(EnterPasswordActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
       return;
@@ -99,17 +102,13 @@ public class EnterPasswordActivity extends AppCompatActivity {
     char[] securePWD = tempPassword.toCharArray();
     Log.d(TAG, "reSetPassword: " + tempPassword);
 
-    Log.d(TAG, "reSetPassword: got user input");
-
     // decode from shared preferences back to byte to verify hash and salt
     byte[] salt = Base64.getDecoder().decode(hashSalt);
     byte[] decodePWD = Base64.getDecoder().decode(password);
-    Log.d(TAG, "reSetPassword: decoded hash");
 
 
     // compare passwords
     boolean match = Passwords.isExpectedPassword(securePWD,salt,decodePWD);
-    Log.d(TAG, "reSetPassword: verifying password");
 
     // if passwords match send intent to main activity
     if (match){
