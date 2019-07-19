@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
 
     if(requestCode == NEW_MED_REQUEST_CODE && resultCode == RESULT_OK) {
-      Medication med = new Medication(data.getStringExtra(NewMedActivity.EXTRA_REPLY), data.getStringExtra("dose"));
+      Medication med = new Medication(data.getStringExtra(NewMedActivity.EXTRA_REPLY), data.getStringExtra("dose"), data.getIntExtra("alarmID", 0));
       mMedViewModel.insert(med);
       Toast.makeText(getApplicationContext(),"Med Added", Toast.LENGTH_LONG).show();
     } else {
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     intent.putExtra("medication", med.getName());
     intent.putExtra("dose", med.getDose());
     intent.putExtra("date", med.getCreated().getTime());
+    intent.putExtra("alarmID", med.getAlarmID());
     startActivity(intent);
   }
 

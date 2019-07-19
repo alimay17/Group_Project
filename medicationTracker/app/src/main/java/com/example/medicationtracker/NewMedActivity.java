@@ -127,9 +127,11 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
           String dose = medDose.getText().toString();
 
           Log.d(TAG, "onClick: medName: " + med + " medDose: " + dose);
+          Log.d(TAG, "onClick: alarmID: " + alarmID);
 
           replyIntent.putExtra(EXTRA_REPLY, med);
           replyIntent.putExtra("dose", dose);
+          replyIntent.putExtra("alarmID", alarmID);
           setResult(RESULT_OK, replyIntent);
         }
         // returns to caller activity to add to db

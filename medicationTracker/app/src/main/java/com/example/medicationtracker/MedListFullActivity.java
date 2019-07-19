@@ -83,7 +83,8 @@ public class MedListFullActivity extends AppCompatActivity implements OnItemClic
     super.onActivityResult(requestCode, resultCode, data);
 
     if(requestCode == NEW_MED_REQUEST_CODE && resultCode == RESULT_OK) {
-      Medication med = new Medication(data.getStringExtra(NewMedActivity.EXTRA_REPLY), data.getStringExtra("dose"));
+      Medication med = new Medication(data.getStringExtra(NewMedActivity.EXTRA_REPLY), data.getStringExtra("dose"), data.getIntExtra("alarmID", 0));
+      Log.d(TAG, "onActivityResult: this is the alarmID" + data.getIntExtra("alarmID: ", 0));
       mMedViewModel.insert(med);
       Toast.makeText(getApplicationContext(),"Med Added", Toast.LENGTH_LONG).show();
      } else {
@@ -107,11 +108,12 @@ public class MedListFullActivity extends AppCompatActivity implements OnItemClic
     Log.d(TAG, "onClick: med: " + med.getId() + "  " + med.getName());
 
 
-    // set intent with medicaiton details
+    // set intent with medication details
     Intent intent = new Intent(this, MedDetailActivity.class);
     intent.putExtra("medication", med.getName());
     intent.putExtra("dose", med.getDose());
     intent.putExtra("date", med.getCreated());
+    intent.putExtra("alarmID", med.getAlarmID());
     startActivity(intent);
   }
 

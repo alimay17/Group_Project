@@ -35,6 +35,11 @@ public class MedDetailActivity extends AppCompatActivity {
     // get database
     mMedViewModel = ViewModelProviders.of(this).get(MedViewModel.class);
     Log.d(TAG, "This is History Detail");
+
+    // alarm id for deleting alarm notifications
+    int alarmID = getIntent().getIntExtra("alarmID",0);
+    Log.d(TAG, "getIncomingIntent: alarm id for med: " + alarmID);
+
     getIncomingIntent();
   }
 

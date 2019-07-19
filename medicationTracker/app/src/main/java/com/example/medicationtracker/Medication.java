@@ -33,14 +33,17 @@ public class Medication {
   @TypeConverters(Converters.class)
   private Date created;
 
+  private int alarmID;
+
   // list of alarms for medication
   @TypeConverters(Converters.class)
   private List<Integer> medAlarms;
 
   // constructor
-  public Medication(String mName, String dose) {
+  public Medication(String mName, String dose, int alarmID) {
     this.mName = mName;
     this.dose = dose;
+    this.alarmID = alarmID;
     Timestamp ts = new Timestamp(System.currentTimeMillis());
     created = ts;
   }
@@ -50,6 +53,8 @@ public class Medication {
   public String getName() { return this.mName; }
   public String getDose() { return dose; }
   public Date getCreated() { return created; }
+  public int getAlarmID() { return alarmID; }
+
   public List<Integer> getMedAlarms() { return medAlarms; }
 
   // setters
@@ -57,5 +62,6 @@ public class Medication {
   public void setmName(@NonNull String mName) { this.mName = mName; }
   public void setDose(String dose) { this.dose = dose; }
   public void setCreated(Date created) { this.created = created; }
+  public void setAlarmID(int alarmID) { this.alarmID = alarmID; }
   public void setMedAlarms(List<Integer> medAlarms) { this.medAlarms = medAlarms; }
 }
