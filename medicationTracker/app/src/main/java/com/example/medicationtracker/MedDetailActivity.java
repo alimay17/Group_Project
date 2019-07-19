@@ -1,5 +1,8 @@
 package com.example.medicationtracker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 /********************************************************************
  * Class to define the medication detail activity
@@ -88,6 +92,24 @@ public class MedDetailActivity extends AppCompatActivity {
     mMedViewModel.deleteMed(dMed);
     Intent intent = new Intent(this, MedListFullActivity.class);
     startActivity(intent);
+
+    // deleting alarm associated with the medicaion being deleted
+    Log.d(TAG, "deleteMed: deleting alarm for deleted med");
+    int alarmID = getIntent().getIntExtra("alarmID",0);
+    java.util.Calendar c = java.util.Calendar.getInstance();
+    int hour = c.get(java.util.Calendar.HOUR_OF_DAY);
+    int minute = (c.get(Calendar.MINUTE) + 1);
+    android.icu.util.Calendar c1 = android.icu.util.Calendar.getInstance();
+    c1.set(android.icu.util.Calendar.HOUR_OF_DAY, hour);
+    c1.set(android.icu.util.Calendar.MINUTE, minute);
+    c1.set(android.icu.util.Calendar.SECOND, 0);
+    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+    Intent intentAlarm = new Intent(this, AlertReceiver.class);
+    intentAlarm.putExtra("medNameKey", "cancelAlarm");
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, alarmID, intentAlarm, 0);
+    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c1.getTimeInMillis(), pendingIntent);
+    PendingIntent pendingCancelIntent = PendingIntent.getBroadcast(this, alarmID, intentAlarm, 0);
+    alarmManager.cancel(pendingCancelIntent);
   }
 
   // return home

@@ -196,9 +196,9 @@ public class NewMedActivity extends AppCompatActivity implements TimePickerDialo
     }
 
     // sends alarm to system - 3 options below: 1 time, repeat every 15 minutes, repeat once a day
-    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent); // non-repeating
-    //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);  // repeats daily
-    //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);  // repeats 15 minutes
+//    alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent); // non-repeating
+//    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);  // repeats 15 minutes
+    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);  // repeats daily
   }
 
   /*******************************************************************
