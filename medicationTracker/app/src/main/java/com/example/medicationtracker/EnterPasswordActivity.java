@@ -128,7 +128,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
      * @param view for new intent
      */
     public void forgotPassword(View view){
-        Intent intent = new Intent(this, ForgotPassword.class);
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
         startActivity(intent);
         finish();
         Log.d(TAG, "forgotPassword: Forgot Password Button pushed");

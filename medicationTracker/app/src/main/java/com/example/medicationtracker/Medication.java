@@ -8,7 +8,6 @@ import androidx.room.TypeConverters;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 /********************************************************************
  * A class to define a medication.
@@ -33,11 +32,8 @@ public class Medication {
   @TypeConverters(Converters.class)
   private Date created;
 
+  // id for notifications
   private int alarmID;
-
-  // list of alarms for medication
-  @TypeConverters(Converters.class)
-  private List<Integer> medAlarms;
 
   // constructor
   public Medication(String mName, String dose, int alarmID) {
@@ -55,13 +51,10 @@ public class Medication {
   public Date getCreated() { return created; }
   public int getAlarmID() { return alarmID; }
 
-  public List<Integer> getMedAlarms() { return medAlarms; }
-
   // setters
   public void setId(int id) { this.id = id; }
   public void setmName(@NonNull String mName) { this.mName = mName; }
   public void setDose(String dose) { this.dose = dose; }
   public void setCreated(Date created) { this.created = created; }
   public void setAlarmID(int alarmID) { this.alarmID = alarmID; }
-  public void setMedAlarms(List<Integer> medAlarms) { this.medAlarms = medAlarms; }
 }

@@ -36,5 +36,10 @@
     <string name="forgotPasswordButton">Forgot Password?</string>
     <string name="favoriteColor"> What is you Favorite color?</string>
     <string name="colorQuestion">Favorite Color?</string>
+    <string name="security_question">Enter Your favorite color as a security question</string>
+    <string name="reset_question">Please enter your security question to reset your password</string>
+    <string name="login_instructions">To reset password enter your current password then hit the reset password button</string>
+    <string name="byline">Developed By Eric Mott, Alice Smith, and Richard Terry</string>
+    <string name="project">CS 246 Class Project July 2019</string>
 
 </resources>

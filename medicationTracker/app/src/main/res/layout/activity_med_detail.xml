@@ -74,15 +74,17 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="207dp"
+        android:layout_width="0dp"
         android:layout_height="47dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="156dp"
         android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/colorAccent"
         android:onClick="deleteMed"
         android:text="@string/delete"
+        android:textColor="@color/buttonLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/created" />
 
     <Button
@@ -90,12 +92,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="156dp"
+        android:layout_marginEnd="16dp"
         android:onClick="returnHome"
         android:text="@string/homeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textColor="@color/buttonLabel"
+        app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/created" />
 </androidx.constraintlayout.widget.ConstraintLayout>
