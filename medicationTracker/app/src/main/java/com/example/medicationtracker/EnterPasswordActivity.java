@@ -122,4 +122,15 @@ public class EnterPasswordActivity extends AppCompatActivity {
       Toast.makeText(EnterPasswordActivity.this, "Password does not match!", Toast.LENGTH_SHORT).show();
     }
   }
+
+    /**
+     * To go to the forgot password button
+     * @param view for new intent
+     */
+    public void forgotPassword(View view){
+        Intent intent = new Intent(this, ForgotPassword.class);
+        startActivity(intent);
+        finish();
+        Log.d(TAG, "forgotPassword: Forgot Password Button pushed");
+    }
 }

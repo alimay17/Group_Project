@@ -38,21 +38,28 @@ public class CreatePasswordActivity extends AppCompatActivity {
    * create password, save in shared preferences, and send user to home
    * @param view for intent
    *******************************************************************/
-  public void createPassword(View view) throws UnsupportedEncodingException {
+  public void createPassword(View view) {
     // set intent
     Intent intent = new Intent(this, MainActivity.class);
 
     // get user input
     EditText newPassword = findViewById(R.id.userPassword);
     EditText newPasswordVerify = findViewById(R.id.userPasswordVerify);
+    EditText challengeQuestion = findViewById(R.id.challengeQuestion);
     String newPWD = newPassword.getText().toString();
     String pwdVerify = newPasswordVerify.getText().toString();
+    String question = challengeQuestion.getText().toString();
 
 
     // checking for a new password / validation
     if(newPWD.equals("") || pwdVerify.equals("")){
       //No password
       Toast.makeText(CreatePasswordActivity.this, "No Password Entered", Toast.LENGTH_SHORT).show();
+    }
+    // No challenge question
+    else if(question.equals("")){
+      //No challenge question
+      Toast.makeText(this, "No Challenge Question Entered", Toast.LENGTH_SHORT).show();
     }
     // New password that matches and is at least 4 characters long
     else if(newPWD.length() < 4) {
@@ -65,17 +72,23 @@ public class CreatePasswordActivity extends AppCompatActivity {
         // get salt and prepare pwd for hash
         char[] securePWD = newPWD.toCharArray();
         byte[] salt = Passwords.getNextSalt();
+        char[] answer = question.toCharArray();
 
         // hash pwd and encode as base64 to save in shared preferences
         byte [] newSecurePWD = Passwords.hash(securePWD,salt);
         String encodedPWD = Base64.getEncoder().encodeToString(newSecurePWD);
         String stringSalt = Base64.getEncoder().encodeToString(salt);
 
+        // hash for the challenge question
+        byte [] secureAnswer = Passwords.hash(answer,salt);
+        String encodeAnswer = Base64.getEncoder().encodeToString(secureAnswer);
+
         // Saving the password to Shared Preferences and going to MainActivity
         SharedPreferences settings = getSharedPreferences("PREFS", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("password", encodedPWD);
         editor.putString("pwdSalt", stringSalt);
+        editor.putString("answer", encodeAnswer);
         editor.apply();
         startActivity(intent);
         finish();
