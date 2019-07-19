@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.UnsupportedEncodingException;
+
 /******************************************************************
  * Class to define password creation
  * This only is called / displayed if the app is newly installed
@@ -35,7 +37,7 @@ public class CreatePasswordActivity extends AppCompatActivity {
    * create password, save in shared preferences, and send user to home
    * @param view for intent
    *******************************************************************/
-  public void createPassword(View view){
+  public void createPassword(View view) throws UnsupportedEncodingException {
     // set intent
     Intent intent = new Intent(this, MainActivity.class);
 
@@ -58,10 +60,15 @@ public class CreatePasswordActivity extends AppCompatActivity {
     // Saving the password
     else{
       if (newPWD.equals(pwdVerify)) {
+        char[] securePWD = newPWD.toCharArray();
+        byte[] salt = Passwords.getNextSalt();
+        String newSecurePWD = Passwords.hash(securePWD,salt).toString();
+        String hashSalt = new String(salt, "UTF-8");
         // Saving the password to Shared Preferences and going to MainActivity
         SharedPreferences settings = getSharedPreferences("PREFS", 0);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString("password", newPWD);
+        editor.putString("password", newSecurePWD);
+        editor.putString("pwdSalt", hashSalt);
         editor.apply();
         startActivity(intent);
         finish();
