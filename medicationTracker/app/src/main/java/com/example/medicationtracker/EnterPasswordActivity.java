@@ -43,7 +43,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
     password = settings.getString("password", "");
     hashSalt = settings.getString("pwdSalt", "");
 
-    // decode back to byte to verify hash and salt
+    // decode from shared preferences back to byte to verify hash and salt
     byte[] salt = Base64.getDecoder().decode(hashSalt);
     byte[] decodePWD = Base64.getDecoder().decode(password);
 
